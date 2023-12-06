@@ -9,10 +9,10 @@ from settings import *
 
 class Dao():
     def __init__(self):
-        self.conn = redis.Redis(host=HOST, port=PORT, db=DB, decode_responses=True)
+        self.conn = redis.Redis(host=HOST, port=PORT, decode_responses=True)
 
     def write(self, name, value):
-        self.conn.setnx(name, value)
+        self.conn.set(name, value)
 
     def read(self):
         all_number = []
@@ -21,4 +21,6 @@ class Dao():
             value = self.conn.get(key)
             number_list = value.split("#")[0].split('_')
             all_number += number_list
+
+        print(all_number) 
         return all_number

@@ -14,7 +14,7 @@ from lxml import etree
 class Chromosphere():
     def __init__(self):
         self.dao = Dao()
-        self.url = 'http://datachart.500.com/ssq/history/newinc/history.php?limit=5000&sort=0'
+        self.url = 'http://datachart.500.com/ssq/history/newinc/history.php?limit=5&sort=0'
         self.get()
 
     def get(self):
@@ -32,4 +32,5 @@ class Chromosphere():
         for i in range(len(phase_list)):
             name = phase_list[i]
             value = '_'.join(red_ball_list[i * 6:i * 6 + 6] + [blue_ball_list[i]]) + '#' + date_list[i]
+            print(name, value)
             self.dao.write(name, value)
