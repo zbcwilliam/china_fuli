@@ -9,12 +9,17 @@ import requests
 from rdao import Dao
 from spider.util.html import to_html
 from lxml import etree
+from settings import *
 
 
 class Chromosphere():
     def __init__(self):
         self.dao = Dao()
-        self.url = 'http://datachart.500.com/ssq/history/newinc/history.php?limit=5&sort=0'
+        self.dao.flush_db()
+        count = COUNT
+        self.url = f'http://datachart.500.com/ssq/history/newinc/history.php?limit={count}&sort=0'
+        #self.url.format(count=COUNT)
+        print(self.url)
         self.get()
 
     def get(self):

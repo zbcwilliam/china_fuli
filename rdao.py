@@ -11,6 +11,9 @@ class Dao():
     def __init__(self):
         self.conn = redis.Redis(host=HOST, port=PORT, decode_responses=True)
 
+    def flush_db(self):
+        self.conn.flushdb()
+
     def write(self, name, value):
         self.conn.set(name, value)
 
