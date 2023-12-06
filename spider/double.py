@@ -5,6 +5,7 @@
 
 
 import requests
+import argparse
 
 from rdao import Dao
 from spider.util.html import to_html
@@ -16,10 +17,15 @@ class Chromosphere():
     def __init__(self):
         self.dao = Dao()
         self.dao.flush_db()
-        count = COUNT
+        parser = argparse.ArgumentParser(description='deliver COUNT')
+        parser.add_argument('-c', '--cat', metavar='cattt', required=True, dest='input_count', action='append', help='set count for statistics')
+        args = parser.parse_args()
+        count = int(args.input_count[0])
+        #count = COUNT
         self.url = f'http://datachart.500.com/ssq/history/newinc/history.php?limit={count}&sort=0'
         #self.url.format(count=COUNT)
         print(self.url)
+        
         self.get()
 
     def get(self):
