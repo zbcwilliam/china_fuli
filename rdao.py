@@ -25,5 +25,5 @@ class Dao():
             number_list = value.split("#")[0].split('_')
             all_number += number_list
 
-        print(all_number) 
+        #print(all_number) 
         return all_number

@@ -19,7 +19,7 @@ def update_data():
     #     # 更新最新的开奖数据
     chromosphere = Chromosphere()
     #     print("更新了最新一期的数据")
-    print("数据已更新")
+    #print("数据已更新")
 def next_number():
     forecast = Forecast()
 

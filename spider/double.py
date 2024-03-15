@@ -23,8 +23,7 @@ class Chromosphere():
         count = int(args.input_count[0])
         #count = COUNT
         self.url = f'http://datachart.500.com/ssq/history/newinc/history.php?limit={count}&sort=0'
-        #self.url.format(count=COUNT)
-        print(self.url)
+        #print(self.url)
         
         self.get()
 
@@ -43,5 +42,5 @@ class Chromosphere():
         for i in range(len(phase_list)):
             name = phase_list[i]
             value = '_'.join(red_ball_list[i * 6:i * 6 + 6] + [blue_ball_list[i]]) + '#' + date_list[i]
-            print(name, value)
+            #print(name, value)
             self.dao.write(name, value)

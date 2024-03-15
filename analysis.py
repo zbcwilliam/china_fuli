@@ -2,6 +2,7 @@
 # -*-coding:UTF-8-*-
 # __author__ = pighui
 # __time__ = 2019-11-14 下午2:44
+import argparse
 from rdao import Dao
 from collections import Counter
 
@@ -9,6 +10,12 @@ from collections import Counter
 class Forecast():
     def __init__(self):
         self.dao = Dao()
+
+        parser = argparse.ArgumentParser(description='deliver COUNT')
+        parser.add_argument('-c', '--cat', metavar='cattt', required=True, dest='input_count', action='append', help='set count for statistics')
+        args = parser.parse_args()
+        self.input_count = int(args.input_count[0])
+
         self.get()
 
     def get(self):
@@ -33,6 +40,9 @@ class Forecast():
         seventh_count = Counter(seventh_number).most_common(1).pop()
         result = [[first_count, second_count, third_count, fourth_count, fifth_count, sixth_count, seventh_count],
                   average]
+        
+        # [[('03', 2), ('07', 3), ('21', 2), ('27', 1), ('28', 1), ('32', 1), ('13', 2)], 1]
+        print(result)
         self.divine(result)
 
     def divine(self, data):
@@ -46,5 +56,5 @@ class Forecast():
             numbers += number + ' '
             all_chance += probability
         chance = round(all_chance / 7, 2)
-        print("预测号码：%s"%numbers.strip())
-        print("中奖概率：%s" % chance + '%')
+        print("count = %d, 预测号码：%s"%(self.input_count, numbers.strip()))
+        #print("中奖概率：%s" % chance + '%')
