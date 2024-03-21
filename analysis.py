@@ -20,11 +20,11 @@ class Forecast():
 
     def get(self):
         number = self.dao.read()
-        print(number)
+        # print(number)
         self.count(number)
 
-    # red-blue: 01-33, 01-16
-    # happy： 01-35, 01-12
+    # red-blue: 01-33, 01-16; 6 + 1
+    # happy： 01-35, 01-12; 5 + 2
     def count(self, number):
         first_number = number[::7]
         average = int(len(first_number) * 7 / 33)
@@ -45,7 +45,7 @@ class Forecast():
                   average]
         
         # [[('03', 2), ('07', 3), ('21', 2), ('27', 1), ('28', 1), ('32', 1), ('13', 2)], 1]
-        print(result)
+        # print(result)
         self.divine(result)
 
     def divine(self, data):
@@ -59,5 +59,5 @@ class Forecast():
             numbers += number + ' '
             all_chance += probability
         chance = round(all_chance / 7, 2)
-        print("count = %d, 预测号码：%s"%(self.input_count, numbers.strip()))
+        # print("count = %d, 预测号码：%s"%(self.input_count, numbers.strip()))
         #print("中奖概率：%s" % chance + '%')
