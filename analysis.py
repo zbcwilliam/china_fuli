@@ -20,8 +20,11 @@ class Forecast():
 
     def get(self):
         number = self.dao.read()
+        print(number)
         self.count(number)
 
+    # red-blue: 01-33, 01-16
+    # happy： 01-35, 01-12
     def count(self, number):
         first_number = number[::7]
         average = int(len(first_number) * 7 / 33)
