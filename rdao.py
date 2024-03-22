@@ -3,6 +3,7 @@
 # __author__ = pighui
 # __time__ = 2019-11-14 下午2:30
 import redis
+import operator
 
 from settings import *
 
@@ -42,29 +43,56 @@ class Dao():
                     hash_table['b'+number] = hash_table['b'+number] + 1
                 else:
                     hash_table['r'+number] = hash_table['r'+number] + 1
-                    
+                   
             onehit_item = ''        
-            list_count_ball = []
             for key, value in hash_table.items():
-                # print(f"Key: {key}, Value: {value}")
-                
-                onehit_item = onehit_item + (key + '-' + str(value) + '; ')
-                list_count_ball.append(str(value) + '-' + key)
+                if key == 'r33':
+                    onehit_item = onehit_item + (key + '-' + str(value) + ' |---| ')
+                else:
+                    onehit_item = onehit_item + (key + '-' + str(value) + '; ')
                 
             print(f"{date_key}#{number_list}#{onehit_item}")
             
+            # sort red balls , sort blue balls        
+            red_blue_keys = list(hash_table.keys())
+            red_keys = red_blue_keys[:33]
+            blue_keys = red_blue_keys[33:]
 
-            list_count_ball.sort()
-            onehit_item2 = ''
-            for count_ball in list_count_ball:
-                if onehit_item2 == '':
-                    onehit_item2 = count_ball + "; "
-                else:
-                    onehit_item2 = onehit_item2 + count_ball + "; "
+            dict_red  = {k: hash_table[k] for k in red_keys}
+            dict_blue = {k: hash_table[k] for k in blue_keys}
+            
+            sorted_dict_red  = dict(sorted(dict_red.items(), key=operator.itemgetter(1)))
+            sorted_dict_blue = dict(sorted(dict_blue.items(), key=operator.itemgetter(1)))
+            
+            onehit_item3_red = ''
+            count_key = 0
+            for key, value in sorted_dict_red.items():
+                count_key = count_key + 1
                 
-            print(f"{date_key}#{number_list}#{onehit_item2}")      
+                if count_key == 33:
+                    onehit_item3_red = onehit_item3_red + (key + '-' + str(value) + ' |---| ')
+                else:
+                    onehit_item3_red = onehit_item3_red + (key + '-' + str(value) + '; ')
+
+            onehit_item3_blue = ''
+            for key, value in sorted_dict_blue.items():
+                onehit_item3_blue = onehit_item3_blue + (key + '-' + str(value) + '; ')
+                
+            print(f"{date_key}#{number_list}#{onehit_item3_red}{onehit_item3_blue}")      
             
             print("\n")
+
+            # list_count_ball.sort()
+            # onehit_item2 = ''
+            # for count_ball in list_count_ball:
+            #     if onehit_item2 == '':
+            #         onehit_item2 = count_ball + "; "
+            #     else:
+            #         onehit_item2 = onehit_item2 + count_ball + "; "
+                
+            # print(f"{date_key}#{number_list}#{onehit_item2}")      
+            
+            # print("\n")
                 
             all_number += number_list
          
