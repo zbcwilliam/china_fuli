@@ -44,13 +44,27 @@ class Dao():
                     hash_table['r'+number] = hash_table['r'+number] + 1
                     
             onehit_item = ''        
-            
+            list_count_ball = []
             for key, value in hash_table.items():
                 # print(f"Key: {key}, Value: {value}")
                 
                 onehit_item = onehit_item + (key + '-' + str(value) + '; ')
+                list_count_ball.append(str(value) + '-' + key)
                 
-            print(f"{date_key}#{number_list}#{onehit_item}")   
+            print(f"{date_key}#{number_list}#{onehit_item}")
+            
+
+            list_count_ball.sort()
+            onehit_item2 = ''
+            for count_ball in list_count_ball:
+                if onehit_item2 == '':
+                    onehit_item2 = count_ball + "; "
+                else:
+                    onehit_item2 = onehit_item2 + count_ball + "; "
+                
+            print(f"{date_key}#{number_list}#{onehit_item2}")      
+            
+            print("\n")
                 
             all_number += number_list
          
