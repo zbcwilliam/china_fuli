@@ -66,17 +66,44 @@ class Dao():
             
             onehit_item3_red = ''
             count_key = 0
+            
+            number_list_hit_red  = number_list[:6]
+            number_list_hit_blue = number_list[6:]
+            
             for key, value in sorted_dict_red.items():
                 count_key = count_key + 1
                 
+                # key such as: r01-533
+                red_key = key.split('-')[0][1:]
+                new_red_key = key
+                
+                flag_hit = False
+                for one_hit_ball in number_list_hit_red:
+                    if red_key == one_hit_ball:
+                        flag_hit = True
+                        new_red_key = 'R' + red_key
+                
                 if count_key == 33:
-                    onehit_item3_red = onehit_item3_red + (key + '-' + str(value) + ' |---| ')
+                    onehit_item3_red = onehit_item3_red + (new_red_key + '-' + str(value) + ' |---| ')
                 else:
-                    onehit_item3_red = onehit_item3_red + (key + '-' + str(value) + '; ')
+                    onehit_item3_red = onehit_item3_red + (new_red_key + '-' + str(value) + '; ')
 
-            onehit_item3_blue = ''
+
+            # handle blue
+            onehit_item3_blue = ''            
             for key, value in sorted_dict_blue.items():
-                onehit_item3_blue = onehit_item3_blue + (key + '-' + str(value) + '; ')
+                
+                # key such as: b01-533
+                blue_key = key.split('-')[0][1:]
+                new_blue_key = key
+                
+                flag_hit = False
+                for one_hit_ball in number_list_hit_blue:
+                    if blue_key == one_hit_ball:
+                        flag_hit = True
+                        new_blue_key = 'B' + blue_key
+                
+                onehit_item3_blue = onehit_item3_blue + (new_blue_key + '-' + str(value) + '; ')
                 
             print(f"{date_key}#{number_list}#{onehit_item3_red}{onehit_item3_blue}")      
             
